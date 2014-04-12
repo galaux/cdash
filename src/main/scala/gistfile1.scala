@@ -24,8 +24,12 @@ case class RowSelection(
   )
 
   def filter(col: Dimension, f: (String) => Boolean): RowSelection = {
-    // To be implemented
-    RowSelection(Seq(), Seq(), Seq(), Seq())
+    val colIndex = dimensionHeaders.indexOf(col)
+    val (newDR, newMR) = (dimensionRows zip metricRows).filter {
+      dimRow => f(dimRow._1(colIndex))
+    }.unzip
+
+    this.copy(metricRows = newMR, dimensionRows = newDR)
   }
 
   def groupByColumns: RowSelection = {
