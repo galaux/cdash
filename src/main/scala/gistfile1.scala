@@ -13,10 +13,10 @@ case class RowSelection(
   metricRows      : Seq[IndexedSeq[Double]],
   dimensionRows   : Seq[IndexedSeq[String]]) {
 
-  def take(n: Int): RowSelection = {
-    // To be implemented
-    RowSelection(Seq(), Seq(), Seq(), Seq())
-  }
+  def take(n: Int): RowSelection = this.copy(
+    metricRows    = metricRows   .take(n),
+    dimensionRows = dimensionRows.take(n)
+  )
 
   def ++(other: RowSelection): RowSelection = {
     // To be implemented
