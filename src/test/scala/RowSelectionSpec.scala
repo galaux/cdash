@@ -14,7 +14,7 @@ class RowSelectionSpec extends FlatSpec with Matchers {
     Seq(IndexedSeq("dimVal11", "dimVal12"), IndexedSeq("dimVal21", "dimVal22"))
   )
 
-  describe("RowSelection") {
+//  describe("RowSelection") {
 
     it should "take the n first rows" in {
       val taken = selection.take(1)
@@ -55,6 +55,6 @@ class RowSelectionSpec extends FlatSpec with Matchers {
       grouped.metricRows should equal(Seq(IndexedSeq(4.0, 6.0)))
     }
 
-  }
+//  }
 
 }

@@ -15,17 +15,21 @@ case class RowSelection(
 
   def take(n: Int): RowSelection = {
     // To be implemented
+    RowSelection(Seq(), Seq(), Seq(), Seq())
   }
 
   def ++(other: RowSelection): RowSelection = {
     // To be implemented
+    RowSelection(Seq(), Seq(), Seq(), Seq())
   }
 
   def filter(col: Dimension, f: (String) => Boolean): RowSelection = {
     // To be implemented
+    RowSelection(Seq(), Seq(), Seq(), Seq())
   }
 
   def groupByColumns: RowSelection = {
     // To be implemented
+    RowSelection(Seq(), Seq(), Seq(), Seq())
   }
 }
