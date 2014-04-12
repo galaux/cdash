@@ -25,7 +25,7 @@ case class RowSelection(
     // To be implemented
   }
 
-  def groupByColumns(cols: Seq[Dimension]): RowSelection = {
+  def groupByColumns: RowSelection = {
     // To be implemented
   }
 }
