@@ -18,10 +18,10 @@ case class RowSelection(
     dimensionRows = dimensionRows.take(n)
   )
 
-  def ++(other: RowSelection): RowSelection = {
-    // To be implemented
-    RowSelection(Seq(), Seq(), Seq(), Seq())
-  }
+  def ++(other: RowSelection): RowSelection = this.copy(
+    metricRows    = metricRows    ++ other.metricRows,
+    dimensionRows = dimensionRows ++ other.dimensionRows
+  )
 
   def filter(col: Dimension, f: (String) => Boolean): RowSelection = {
     // To be implemented

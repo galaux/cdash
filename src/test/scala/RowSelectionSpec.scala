@@ -25,13 +25,13 @@ class RowSelectionSpec extends FlatSpec with Matchers {
     it should "add a selection to another selection" in {
       val other = selection
       val added = selection ++ other
-      added.metricHeaders should equal(selection.metricRows)
-      added.dimensionHeaders should equal(selection.dimensionRows)
+      added.metricHeaders should equal(selection.metricHeaders)
+      added.dimensionHeaders should equal(selection.dimensionHeaders)
       added.metricRows should equal(Seq(
         IndexedSeq(1.0, 3.0),
-        IndexedSeq(2.0, 7.0),
+        IndexedSeq(2.0, 9.0),
         IndexedSeq(1.0, 3.0),
-        IndexedSeq(2.0, 7.0)))
+        IndexedSeq(2.0, 9.0)))
       added.dimensionRows should equal(Seq(
         IndexedSeq("dimVal11", "dimVal12"),
         IndexedSeq("dimVal21", "dimVal22"),
