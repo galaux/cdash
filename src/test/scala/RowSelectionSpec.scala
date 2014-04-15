@@ -50,9 +50,9 @@ class RowSelectionSpec extends FlatSpec with Matchers {
       val s = selection.copy(dimensionRows = Seq(
         IndexedSeq("dimVal1", "dimVal2"),
         IndexedSeq("dimVal1", "dimVal2")))
-      val grouped = s.groupByColumns
+      val grouped = s.groupByColumns(Seq(dimension1, dimension2))
       grouped.dimensionRows should equal(Seq(IndexedSeq("dimVal1", "dimVal2")))
-      grouped.metricRows should equal(Seq(IndexedSeq(4.0, 6.0)))
+      grouped.metricRows should equal(Seq(IndexedSeq(3.0, 6.0)))
     }
 
 //  }

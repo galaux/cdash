@@ -32,8 +32,35 @@ case class RowSelection(
     this.copy(metricRows = newMR, dimensionRows = newDR)
   }
 
-  def groupByColumns: RowSelection = {
-    // To be implemented
-    RowSelection(Seq(), Seq(), Seq(), Seq())
+  def groupByColumns(cols: Seq[Dimension]): RowSelection = {
+
+    def getValueForIndexes(indexes: Seq[Int], dimRow: IndexedSeq[String]): IndexedSeq[String] =
+      indexes.toIndexedSeq.map { idx => dimRow(idx) }
+
+    def applyOp(op: AggregationOperation.Value, vals: Seq[Double]) = {
+      op match {
+        case AggregationOperation.Sum         => vals.sum
+        case AggregationOperation.Average     => vals.sum / vals.length // TODO handle /0
+        case AggregationOperation.Min         => 0 // TODO
+        case AggregationOperation.Max         => 0 // TODO
+        case AggregationOperation.Count       => 0 // TODO
+        case AggregationOperation.Calculated  => 0 // TODO
+      }
+    }
+
+    val indexesForCols = cols.map { dimensionHeaders.indexOf(_) }
+    val gpRes = (dimensionRows zip metricRows).groupBy( _ match {
+        case (dimensionRow, metricRow) => getValueForIndexes(indexesForCols, dimensionRow)
+      }
+    )
+
+    val newMR = gpRes.mapValues { res =>
+      val values = (res.map { _._2 }).transpose
+      (metricHeaders zip values).map { _ match {
+        case (metricHeader, value) => applyOp(metricHeader.aggregationOperation, value)
+      }}.toIndexedSeq
+    }
+
+    this.copy(dimensionRows = newMR.keys.toSeq, metricRows = newMR.values.toSeq)
   }
 }
